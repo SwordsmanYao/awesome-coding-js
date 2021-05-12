@@ -29,24 +29,31 @@
 
 
     //非递归实现
-    function KthNode(pRoot, k) {
-      const arr = [];
-      const stack = [];
-      let current = pRoot;
-      while (stack.length > 0 || current) {
-        while (current) {
-          stack.push(current);
-          current = current.left;
-        }
-        current = stack.pop();
-        arr.push(current);
-        current = current.right;
+    function kthNode(root, k) {
+      if (k <= 0) {
+        return null;
       }
-      if (k > 0 && k <= arr.length) {
-        return arr[k - 1];
-      }
-      return null;
-    }
+
+       const stack = [];
+       let current = root;
+       let index = 0;
+
+       while(current || stack.length > 0) {
+         while(current) {
+           stack.push(current);
+           current = current.left;
+         }
+
+         current = stack.pop();
+         if (index === k - 1) {
+           return current;
+         }
+         index++;
+
+         current = current.right;
+       }
+       return null;
+     }
 ```
 
 ## 考察点
